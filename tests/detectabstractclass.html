@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="app/vendor/vendor/vendor.js" baseurl=""></script>
+	<script src="app/vendor/qunit/qunit/qunit.js"></script>
+	
+	<link rel="stylesheet" href="app/vendor/qunit/qunit/qunit.css" />
+	<title>Testing Abratct</title>
+</head>
+<body>
+	<div id="qunit"></div>
+  	<div id="qunit-fixture"></div>
+	<script>
+	QUnit.test("Detection of class", function( assert ) {
+		stop();
+		var tString = "hello, world";
+		var tInteger = 123;
+		var tBool = true;
+		var tFunction = function(){};
+		var tObject = {};
+		var tArray = [];
+		var tJson = '{abc:"cde"}';
+		var tSelectorHash = '#helloWorld';
+		var tSelectorClass = '.helloWorld';
+		var tSelectorAttributeKey = '[alfa]';
+		var tSelectorAttributeFull = '[alfa=fsdfdsf-dfdsf-123]';
+		var tSelectorStrong = '#dsfds.eqwFD-453-fd[alfa=fsdfdsf-dfdsf-123]:visited';
+		var tHtmlElementBody = document.body;
+		var tHtmlElement = document.querySelector('div');
+		var tHtmlElementDocument = document;
+		var tRichArray = {length:0};
+		var tDate = new Date();
+		
+		vendor(['../src/core/core.js', '../src/core/ext/detectAbstractClass.js'], function(core) {
+			assert.equal(core.detectAbstractClass(tString), "String", "Native String");
+			assert.equal(core.detectAbstractClass(tInteger), "Number", "Native Number");
+			assert.equal(core.detectAbstractClass(tBool), "Boolean", "Native Boolean");
+			assert.equal(core.detectAbstractClass(tFunction), "Function", "Native Function");
+			assert.equal(core.detectAbstractClass(tObject), "Object", "Native Object");
+			assert.equal(core.detectAbstractClass(tArray), "Array", "Native Array");
+			assert.equal(core.detectAbstractClass(tJson), "Json", "Json");
+			assert.equal(core.detectAbstractClass(tSelectorHash), "Selector", "Selector");
+			assert.equal(core.detectAbstractClass(tSelectorClass), "Selector", "SelectorClass");
+			assert.equal(core.detectAbstractClass(tSelectorAttributeKey), "Selector", "SelectorAttributeKey");
+			assert.equal(core.detectAbstractClass(tSelectorAttributeFull), "Selector", "SelectorAttributeFull");
+			assert.equal(core.detectAbstractClass(tSelectorStrong), "Selector", "SelectorStrong");
+			assert.equal(core.detectAbstractClass(tHtmlElementBody), "HTMLElement", "HTMLElementBody");
+			assert.equal(core.detectAbstractClass(tHtmlElementDocument), "HTMLElement", "HTMLElementDocument");
+			assert.equal(core.detectAbstractClass(tRichArray), "RichArray", "RichArray");
+			assert.equal(core.detectAbstractClass(tDate), "Date", "Date");
+			start();
+		});
+
+	});
+	</script>
+</body>
+</html>
