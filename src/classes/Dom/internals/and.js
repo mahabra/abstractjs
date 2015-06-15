@@ -1,4 +1,4 @@
-define(['./../Dom.js','./../../../common/extend.js','./../../../core/core-ext.js'], function(Dom, extend) {
+define(['./../../../core/core.js', './../Dom.js','../extras/determineNodeObject.js',], function(core, Dom, determineNodeObject) {
 	Dom.proto({
 		and: function(subject, data) {
 			// This function return Array anyway
@@ -18,7 +18,7 @@ define(['./../Dom.js','./../../../common/extend.js','./../../../core/core-ext.js
 			    }
 			});
 
-			return Brahma(objects);
+			return core(objects, 'HTMLElement');
 		}
 	});
 });

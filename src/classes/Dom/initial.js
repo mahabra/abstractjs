@@ -14,7 +14,8 @@ define([
 	'./internals/parent.js',
 	'./internals/put.js',
 	//'./internals/ready.js',
-	'./internals/wrap.js'
+	'./internals/wrap.js',
+	'./internals/shift.js'
 ], function(core) {
 
 });

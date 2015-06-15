@@ -14,12 +14,6 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../core/core-ext.
 			args.unshift(this.__subject__||this);
 
 			return JSON.parse.apply(JSON, args);
-		},
-		stringify: function() {
-			var args = Array.prototype.slice.apply(arguments);
-			args.unshift(this.__subject__||this);
-
-			return JSON.stringify.apply(JSON, args);
 		}
 	}
 	Object.defineProperty(Json, "constructor", {
