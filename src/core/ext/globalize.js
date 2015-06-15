@@ -1,4 +1,4 @@
-define(['./../core.js','./../../common/mixin.js'], function(core) {
+define(['./../core.js','./../../common/mixin.js'], function(core, mixin) {
 	core.extend({
 		/*
 		Функция заносит все расширения в прототипы родных объектов Javascript.

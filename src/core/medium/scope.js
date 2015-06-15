@@ -1,8 +1,8 @@
-define(['./../core.js'], function(core) {
+define(['./../core.js','./../../common/isObjective.js'], function(core, isObjective) {
 
 	return function(id,subject) {
 		
-		var scope, __abstractClass__ = core.detectAbstractClass(subject);
+		var scope, __abstractClass__ = core.determineAbstractClass(subject, true);
 		scope = function(data) {
 			
 		};
@@ -10,7 +10,7 @@ define(['./../core.js'], function(core) {
 		/*
 		Судьект размещаем в более глубоком слое прототипа. Соответственно абстракция получит все свойства исходного объекта.
 		*/
-		scope.prototype = Object.create(subject, {
+		scope.prototype = Object.create(isObjective(subject)||{}, {
 			/*
 			Scope id is index in stack
 			*/
@@ -46,7 +46,10 @@ define(['./../core.js'], function(core) {
 		Для этого используется функция ядра charge, которая принимает ссылку на
 		объект и список абстрактных классов.
 		*/
-		scope = core.charge(scope, __abstractClass__);
+		__abstractClass__.forEach(function(aClass) {
+			scope = core.charge(scope, aClass);
+		});
+		
 		
 		return new scope();
 	}

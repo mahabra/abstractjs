@@ -453,11 +453,15 @@
 
 	Vendor.resources = {};
 
-	Vendor.config = {
-		baseUrl: 'http://abstract.things/tests/',
+	Vendor.config = function(data) {
+		mixin(Vendor.config, data);
+	}
+
+	Vendor.config({
+		baseUrl: '/',
 		timeout: 5000,
 		visualDebug: true
-	}
+	});
 
 	/*
 	Эта функция принимает только абсолютный путь или он будет преобразован в абсолютный самым примитивным образом
@@ -500,6 +504,93 @@
 			factory: factory
 		}
 	}
+
+	/* Автоопределение положения vendor */
+	
+
+		;(function() {
+
+			var g = document.getElementsByTagName("SCRIPT");
+			var srci = false, bsk = false, bwk = false;
+			for (var j in g) {
+				
+				if (typeof g[j].attributes == "object") {
+					// Search for src					
+					for (var z=0;z<g[j].attributes.length;z++) {
+						if (g[j].attributes[z].name.toLowerCase()==='src') {
+							
+							if (z!==false && typeof g[j].attributes === "object" && typeof g[j].attributes[z] === "object" && g[j].attributes[z] != null && /vendor\.js/.test(g[j].attributes[z].value)) {
+								
+								srci = z;
+								break;
+							};
+						};
+					}
+				}
+				if (srci!==false) {
+					
+					// Search for baseUrl					
+					for (var z=0;z<g[j].attributes.length;z++) {
+
+						if (g[j].attributes[z].name.toLowerCase()==='baseurl') {
+
+							bsk = z;
+							break;
+						};
+					}
+					// Search for bowerComponents					
+					for (var z=0;z<g[j].attributes.length;z++) {
+						if (g[j].attributes[z].name.toLowerCase()==='bower-components') {
+							bwk = z;
+							break;
+						};
+					}
+					// Parse location
+					var f = document.location.href;
+					if (f.lastIndexOf('/')>7) f = f.substring(0, f.lastIndexOf('/'));
+					
+					if (f.substr(-1)=='/') f = f.substr(0,-1);
+
+					if (bsk!==false) {
+						
+						var h = g[j].attributes[bsk].value;
+						
+						if (h.substr(0,1)==='/') {
+							var match = f.match(/^(http?[s]?:\/\/[^\/]*)/);
+							if (match!==null) f = match[1];
+						}
+						var baseUrl = (h.substr(0,5).toLowerCase()==='http:') ? h : (f + (h.substr(0,1)==='/' ? '' : '/') + h);
+						
+					}
+					else {
+						
+						var i = g[j].attributes[srci].value.toLowerCase();
+						var h = i.split("vendor.js");
+						var baseUrl = (h[0].substr(0,5)=='http:') ? h[0] : (f + (h[0].substr(0,1)=='/' ? '' : '/') + h[0])+(h[0].substr(h[0].length-1, 1)==='/' ? '' : '');
+							
+					}
+					if (baseUrl.substr(baseUrl.length-1, 1)!=='/') baseUrl=baseUrl+'/';
+					
+					Vendor.config({
+						baseUrl: baseUrl,
+						bowerComponentsUrl: ((bwk!==false) ? (function() {
+						var h = g[j].attributes[bwk].value;
+						return (h.substr(0,5).toLowerCase()==='http:') ? h : (f + (h.substr(0,1)=='/' ? '' : '/') + h)+(h.substr(h.length-1, 1)==='/' ? '' : '');
+					})() : baseUrl+"bower_components/"),
+						noBowerrc: g[j].getAttribute('no-bowerrc') ? true : false
+					});
+					// import
+					Vendor.selfLocationdefined = true;
+					// Search for import
+					if (g[j].getAttribute('data-import')) {
+						Vendor.defineDataImport = g[j].getAttribute('data-import');
+						Vendor.require(g[j].getAttribute('data-import'));
+					}
+					break;
+				}				
+			}
+		})();
+	
 
 	window.vendor = Vendor;
 

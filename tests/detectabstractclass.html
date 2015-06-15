@@ -32,23 +32,23 @@
 		var tRichArray = {length:0};
 		var tDate = new Date();
 		
-		vendor(['../src/core/core.js', '../src/core/ext/detectAbstractClass.js'], function(core) {
-			assert.equal(core.detectAbstractClass(tString), "String", "Native String");
-			assert.equal(core.detectAbstractClass(tInteger), "Number", "Native Number");
-			assert.equal(core.detectAbstractClass(tBool), "Boolean", "Native Boolean");
-			assert.equal(core.detectAbstractClass(tFunction), "Function", "Native Function");
-			assert.equal(core.detectAbstractClass(tObject), "Object", "Native Object");
-			assert.equal(core.detectAbstractClass(tArray), "Array", "Native Array");
-			assert.equal(core.detectAbstractClass(tJson), "Json", "Json");
-			assert.equal(core.detectAbstractClass(tSelectorHash), "Selector", "Selector");
-			assert.equal(core.detectAbstractClass(tSelectorClass), "Selector", "SelectorClass");
-			assert.equal(core.detectAbstractClass(tSelectorAttributeKey), "Selector", "SelectorAttributeKey");
-			assert.equal(core.detectAbstractClass(tSelectorAttributeFull), "Selector", "SelectorAttributeFull");
-			assert.equal(core.detectAbstractClass(tSelectorStrong), "Selector", "SelectorStrong");
-			assert.equal(core.detectAbstractClass(tHtmlElementBody), "HTMLElement", "HTMLElementBody");
-			assert.equal(core.detectAbstractClass(tHtmlElementDocument), "HTMLElement", "HTMLElementDocument");
-			assert.equal(core.detectAbstractClass(tRichArray), "RichArray", "RichArray");
-			assert.equal(core.detectAbstractClass(tDate), "Date", "Date");
+		vendor(['../src/core/core.js', '../src/core/ext/determineAbstractClass.js'], function(core) {
+			assert.equal(core.determineAbstractClass(tString), "String", "Native String");
+			assert.equal(core.determineAbstractClass(tInteger), "Number", "Native Number");
+			assert.equal(core.determineAbstractClass(tBool), "Boolean", "Native Boolean");
+			assert.equal(core.determineAbstractClass(tFunction), "Function", "Native Function");
+			assert.equal(core.determineAbstractClass(tObject), "Object", "Native Object");
+			assert.equal(core.determineAbstractClass(tArray), "Array", "Native Array");
+			assert.equal(core.determineAbstractClass(tJson), "Json", "Json");
+			assert.equal(core.determineAbstractClass(tSelectorHash), "Selector", "Selector");
+			assert.equal(core.determineAbstractClass(tSelectorClass), "Selector", "SelectorClass");
+			assert.equal(core.determineAbstractClass(tSelectorAttributeKey), "Selector", "SelectorAttributeKey");
+			assert.equal(core.determineAbstractClass(tSelectorAttributeFull), "Selector", "SelectorAttributeFull");
+			assert.equal(core.determineAbstractClass(tSelectorStrong), "Selector", "SelectorStrong");
+			assert.equal(core.determineAbstractClass(tHtmlElementBody), "HTMLElement", "HTMLElementBody");
+			assert.equal(core.determineAbstractClass(tHtmlElementDocument), "HTMLElement", "HTMLElementDocument");
+			assert.equal(core.determineAbstractClass(tRichArray), "RichArray", "RichArray");
+			assert.equal(core.determineAbstractClass(tDate), "Date", "Date");
 			start();
 		});
 

@@ -28,10 +28,16 @@ define(['./../core.js','./../../common/charge.js','./../../common/inherit.js','.
 
 
 					/*
-					Класс расширяет класс. Используется метод inherit.
+					Класс расширяет класс. Используется метод inherit. Мы оставляем метку о том, что 
+					этот класс уже был расширен.
 					*/
-					
-					aClass1 = inherit(aClass1, [aClass2]);
+					var inheritedBy = ("object"===typeof aClass1.prototype.inheritedBy) ? aClass1.prototype.inheritedBy : [];
+					if (inheritedBy.indexOf(aClass2.className)<0) {
+
+						inheritedBy.push(aClass2.className);
+						aClass1 = inherit(aClass1, [aClass2]);
+						aClass1.prototype.inheritedBy = inheritedBy;
+					}
 				} else if ("object"===typeof aClass1) {
 					if ("function"===typeof aClass2) {
 						/* Класс расширяет объект */

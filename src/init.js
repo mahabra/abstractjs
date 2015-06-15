@@ -3,7 +3,8 @@ define([
 	'./core/core-ext.js',
 	'./core/medium.js',
 	/* Абслуживание абстрактных классов */
-	'./classes/reinit.js'
+	'./classes/defaults.js',
+	'./polyfills/forEach.js'
 	], function(core) {
 	return core;
 });
