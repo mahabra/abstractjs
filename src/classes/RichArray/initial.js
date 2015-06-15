@@ -1,0 +1,1 @@
+define(['./RichArray.js'], function() { });

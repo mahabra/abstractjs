@@ -1,0 +1,3 @@
+define(['./Strings.js'], function() {
+
+});

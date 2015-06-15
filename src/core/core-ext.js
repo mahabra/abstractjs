@@ -6,5 +6,6 @@ define([
 	'./ext/isNativeClass.js',
 	'./ext/registerClass.js',
 	'./ext/cclass.js',
-	'./ext/supports.js'
+	'./ext/supports.js',
+	'./ext/warn.js'
 ], function() {});
