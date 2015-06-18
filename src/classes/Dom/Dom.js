@@ -2,7 +2,8 @@
 define([
 	'./../../core/core.js',
 	'./../../common/mixin.js',
-	'./extras/querySelector.js'
+	'./extras/querySelector.js',
+	'./../../core/core-ext.js'
 ], function(core, mixin, querySelector, and) {
 	/* Расширяем абстрактный класс Function */
 	

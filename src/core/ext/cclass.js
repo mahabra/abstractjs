@@ -12,6 +12,13 @@ define(['./../core.js','./../var/classCreator.js'], function(core, classCreator)
 			} else {
 				return null;
 			}
+		},
+		classExists: function(className) {
+			if ("function"===typeof core.classes[className]) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 	});

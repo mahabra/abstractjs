@@ -9,6 +9,12 @@ define(['./../core.js','./../../common/firstToUpper.js','./../var/htmlTags.js'],
 			"Array": function(res) {
 				if (res instanceof Array) return true; return false;
 			},
+			"Window": function(res) {
+				return res===window;
+			},
+			"Abstract": function(res) {
+				return ("undefined"!==typeof res.__abstractClass__);
+			},
 			// Detect HTMLElement
 			"HTMLElement": function(res) {
 				if (res.toString().substr(0,12)==="[object HTML") return true; return false;
@@ -25,13 +31,15 @@ define(['./../core.js','./../../common/firstToUpper.js','./../var/htmlTags.js'],
 		"string": {
 			// Detect selector
 			"Selector": function(res) {
-				var tsp = res.split(/[> ]+/),wrong=false;
-				console.log('tsp', tsp);
-				core(tsp).each(function(piece) {
-					if (htmlTags.indexOf(piece.toUpperCase())>=0) return false;
-					if (/^[>#\.[]]{0,2}[^'", ]+[a-zA-Z0-9\-\[]+/.test(piece)) { return false; } else { console.log('piece', piece); wrong=true; }
-				});
-				return !wrong;
+
+				var tsp = res.split(/[> ]+/),found=false;
+				for (var i = 0;i<tsp.length;i++) {
+					(function(piece) {
+						if (htmlTags.indexOf(piece.toUpperCase())>=0) { found=true; return true; }
+						if (/^[>#\.[]]{0,2}[^'", ]+[a-zA-Z0-9\-\[]+/.test(piece)) { console.log('macthed', res); found=true; return true }
+					})(tsp[i]);
+				}
+				return found;
 			},
 			// Json
 			"Json": function(res) {

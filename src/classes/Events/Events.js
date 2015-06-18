@@ -1,9 +1,15 @@
 
-define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit.js','./../../core/core-ext.js'], function(core, mixin, inherit) {
+define([
+	'./../../core/core.js',
+	'./../../common/mixin.js',
+	'./../../common/inherit.js',
+	'./../../common/addEvent.js',
+	'./../../common/removeEvent.js',
+	'./../../core/core-ext.js'
+], function(core, mixin, inherit, addEvent, removeEvent) {
 	/* Расширяем абстрактный класс Function */
-	
 	var Events = core.registerClass('Events', function() {
-		if (this.__subject__ && "function"!==typeof this.__subject__.trigger) {
+		if (this.__subject__!==window && this.__subject__ && "function"!==typeof this.__subject__.trigger) {
 			/*
 			Патчим объект
 			*/
@@ -12,13 +18,22 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit
 	});
 	Events.prototype = {
 		eventListners : {},
-		bind : function(e, callback, once) {
-			if (typeof this.eventListners[e] != 'object') this.eventListners[e] = [];
-			
-			this.eventListners[e].push({
-				callback: callback,
-				once: once
-			});
+		bind : function(events, callback, once) {
+
+			if ( (this.__subject__||this)===window ) {
+				if (!(events instanceof Array)) events = [events];
+				for (var e = 0;e<events.length;++e) {
+					addEvent((this.__subject__||this), events[e], arguments[1], arguments[2]||false);
+				}
+			} else {
+
+				if (typeof this.eventListners[events] != 'object') this.eventListners[events] = [];
+				
+				this.eventListners[events].push({
+					callback: callback,
+					once: once
+				});
+			}
 
 			return this;
 		},
@@ -71,4 +86,5 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit
 		writable: false,
 		value: Events
 	});
+	Events.assignTo('Window');
 });

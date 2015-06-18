@@ -1,6 +1,6 @@
 
 define(['./../core.js','./../../common/charge.js','./../../common/inherit.js','./../../common/extend.js'], function(core, charge, inherit, extend) {
-	console.log('CHARGE EXECUTED');
+	
 	core.extend({
 		/*
 		Функция расширяет первый класс/объект вторым классом/объектом. В качестве аргументов может быть передана и строка,
@@ -54,9 +54,7 @@ define(['./../core.js','./../../common/charge.js','./../../common/inherit.js','.
 			/* Перебираем классы абстрактно связанные с этим */
 
 			if (typeof className2 === "string" && "object"===typeof core.classesAssignmentsMap[className2]) {
-
 				for (var i = 0; i<core.classesAssignmentsMap[className2].length;++i) {
-
 					aClass1 = core.charge(aClass1, core.classesAssignmentsMap[className2][i]);
 				}
 			}

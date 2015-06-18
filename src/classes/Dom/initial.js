@@ -13,9 +13,13 @@ define([
 	'./internals/html.js',
 	'./internals/parent.js',
 	'./internals/put.js',
-	//'./internals/ready.js',
+	'./internals/ready.js',
 	'./internals/wrap.js',
-	'./internals/shift.js'
+	'./internals/shift.js',
+	'./internals/offset.js',
+	'./internals/scrollTop.js',
+	'./internals/module.js',
+	'./internals/first.js'
 ], function(core) {
 
 });

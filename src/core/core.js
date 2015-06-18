@@ -1,7 +1,7 @@
 define(['./../common/extend.js','./var/nativeClasses.js'], function(extend, nativeClasses) {
 	
-	var Abstract = function(Subject){
-		return Abstract.scope(Subject);
+	var Abstract = function(Subject, forceType){
+		return Abstract.scope(Subject, forceType);
 	};
 	/*
 	Функция расширения самого себя
@@ -24,8 +24,6 @@ define(['./../common/extend.js','./var/nativeClasses.js'], function(extend, nati
 	for (var i = 0;i<nativeClasses.length;i++) {
 		Abstract.classesAssignmentsMap[nativeClasses[i]] = [];
 	}
-
-	window.abstract = window.Abstract = window.$ = Abstract;
 
 	return Abstract;
 });

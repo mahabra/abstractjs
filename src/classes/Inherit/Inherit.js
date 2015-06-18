@@ -1,5 +1,5 @@
 
-define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit.js','./../../core/core-ext.js','./../../core/core-ext.js'], function(core, mixin, inherit) {
+define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit.js','./../../core/core-ext.js'], function(core, mixin, inherit) {
 	/* Расширяем абстрактный класс Function */
 	
 	var Inherit = core.registerClass('Inherit', function() {
@@ -29,8 +29,10 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit
 		класса через apply с передачей аргументов в виде массива.
 		*/
 		construct: function() {
+
 			(this.__subject__||this).__proto__.__disableContructor__ = true;
-			var module = new this();
+			
+			var module = new (this.__subject__||this)();
 			(this.__subject__||this).apply(module, arguments);
 			return module;
 		},
@@ -50,4 +52,5 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../common/inherit
 		value: Inherit
 	});
 	Inherit.assignTo('Function');
+	Inherit.embeddable=true;
 });

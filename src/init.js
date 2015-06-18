@@ -6,5 +6,6 @@ define([
 	'./classes/defaults.js',
 	'./polyfills/forEach.js'
 	], function(core) {
-	return core;
+
+		window.Abstract = window.abs = window.$ = core;
 });

@@ -3,6 +3,7 @@ define(['./../core.js','./../../common/mixin.js', './../ext/assignClassToClass.j
 	return function(className, constructor) {
 
 		var abstractClass = constructor || function() {};
+		
 		/*
 		Привязать класс с абстрктному классу. Его функционал будет доступ через абстракцию.
 		*/
@@ -23,9 +24,11 @@ define(['./../core.js','./../../common/mixin.js', './../ext/assignClassToClass.j
 			mixin(abstractClass.prototype, data);
 			return abstractClass;
 		}
+		
 		/*
 		Собственное имя класса
 		*/
+		abstractClass.embeddable=false;
 		abstractClass.className = className;
 
 		return abstractClass;

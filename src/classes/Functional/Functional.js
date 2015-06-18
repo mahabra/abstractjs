@@ -3,7 +3,12 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../core/core-ext.
 	/* Расширяем абстрактный класс Function */
 	
 	var Functional = core.registerClass('Functional', function() {
-		
+		if (this.__subject__!==window && this.__subject__ && "function"!==typeof this.__subject__.delay) {
+			/*
+			Патчим объект
+			*/
+			mixin(this.__subject__, Functional.prototype);
+		}
 	});
 	Functional.prototype = {
 		delay: function(timeout) {
@@ -39,6 +44,18 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../core/core-ext.
 					return callback;
 				}
 			}
+		},
+		/*
+		Загружает ресурсы и затем выполняет функцию
+		*/
+		load: function(resources) {
+			var callback = (this.__subject__||this);
+			$.vendor(resources, function() {
+				var args = Array.prototype.slice(arguments);
+				args.unshift(false);
+				callback(false, args);
+			});
+			return true;
 		}
 	}
 	Object.defineProperty(Functional, "constructor", {

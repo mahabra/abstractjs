@@ -6,6 +6,7 @@ define(['./mixin.js'], function(mixin) {
 	Не требует ручного вызова конструктора родительских классов.
 	*/
 	return function(aClass, classes) {
+		
 		var cl=classes.length,
 		superconstructor = function(){
 			for (var i=0;i<cl;++i) {
@@ -57,13 +58,14 @@ define(['./mixin.js'], function(mixin) {
 			Это может применять в методе construct абстрактного прототипа Function, для вызова
 			контруктора через функцию Apply.
 			*/
-			if (this.__proto__.__disableContructor__) { 
-				delete this.__proto__.__disableContructor__;
+			if (superconstructor.__proto__.__disableContructor__) { 
+				superconstructor.__proto__.__disableContructor__ = false;
 				return false;
 			}
 			if (this!==window) {
 				superconstructor.apply(this, arguments)
 			}
+
 			aClass.apply(this, arguments);
 		}
 		Mixin.prototype = Object.create(superprototype,{
@@ -96,8 +98,7 @@ define(['./mixin.js'], function(mixin) {
 		Кроме того, все статичные свойства так же должны быть скопированы
 		*/
 		for (var prop in aClass) {
-			if (aClass.hasOwnProperty(prop)) console.log(prop);
-			Mixin[prop] = aClass[prop];
+			if (aClass.hasOwnProperty(prop)) Mixin[prop] = aClass[prop];
 		}
 		Object.defineProperty(Mixin.prototype, "constructor", {
 			configurable: false,

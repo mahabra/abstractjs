@@ -1,5 +1,5 @@
-define(['./../Dom.js', '../core-ext.js', '../document.js'], function(Dom) {
-	
+define(['./../Dom.js', './../../../core/core-ext.js'], function(Dom) {
+	core.register('document:ready', false);
 	(function (win, fn) {
 	      var done = false, top = true,
 	  
@@ -32,16 +32,16 @@ define(['./../Dom.js', '../core-ext.js', '../document.js'], function(Dom) {
 	      }
 	  
 	})(window, function() {
-		
-		core.document.ready = true;
+		core.register('document:ready', true);
 		core.trigger('DOMReady');
 	});
+	
 
 	Dom.proto({
 		ready: function(callback) {
 			var self = this;
 			if (this[0]===window||this[0]===document) {
-				if (core.document.ready) callback.apply(this);
+				if (core.register('document:ready')) callback.apply(this);
 				else core.bind('DOMReady', function() {
 					callback.apply(self);
 				});
