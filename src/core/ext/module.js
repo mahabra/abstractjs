@@ -10,21 +10,15 @@ define(['./../core.js'], function(core) {
 				(typeof arguments[1]==="object") && (proto=arguments[1], ("function"===typeof arguments[2] && (constructor=arguments[2])));
 			}
 
-			var fullModuleName = 'module'+core(className).firstUpper();
+			var realModuleName = 'module'+core(className).firstUpper();
+			
+			if (!core.moduleExists(className)) {
+				core.registerModule(className, constructor||function() {});
 
-
-			if (!core.classExists(fullModuleName)) {
-
-				var widget = $(function() { }).inherit(core.class('Widget'));
-				core.registerClass(fullModuleName, widget);
-
-			} else {
-				var widget = core.class(fullModuleName);
-			}
-			if (constructor!==null) {
-				core.classes[fullModuleName] = widget.inherit(constructor);
-			}
-			if (proto!==null) core.classes[fullModuleName]  = widget.proto(proto);
+			};
+			var widget = core.classes[realModuleName];
+			
+			//if (proto!==null) core.classes[realModuleName]  = widget.proto(proto);
 			/*
 			Сохраняем виджет
 			*/

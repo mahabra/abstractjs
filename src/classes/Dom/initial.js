@@ -19,7 +19,12 @@ define([
 	'./internals/offset.js',
 	'./internals/scrollTop.js',
 	'./internals/module.js',
-	'./internals/first.js'
+	'./internals/first.js',
+	'./internals/toArray.js',
+	'./internals/search.js',
+	'./internals/is.js',
+	'./internals/width.js',
+	'./internals/height.js'
 ], function(core) {
 
 });

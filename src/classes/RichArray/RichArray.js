@@ -1,4 +1,4 @@
-define(['./../../core/core.js','./../../common/extend.js','./../../common/isObjective.js'], function(core, extend, isObjective) {
+define(['./../../core/core.js','./../../common/extend.js','./../../common/isRichObjective.js'], function(core, extend, isRichObjective) {
 	/* Расширяем абстрактный класс Function */
 	
 	var RichArray = core.registerClass('RichArray', function() {
@@ -15,13 +15,15 @@ define(['./../../core/core.js','./../../common/extend.js','./../../common/isObje
 			}
 			return this;
 		},
-		each: function(callback) {
-			var operand = isObjective(this.__subject__)||this;
-			if ("number"===typeof operand.length)
-			for (var i = 0;i<operand.length;++i) {
-				callback.call(operand[i], operand[i], i);
-			}
-			return operand;
+		map: function(cb) {
+			var r = [];
+
+			this.each(function(el) {
+				var uresult = cb(el);
+				if (uresult!==null) r.push(uresult)
+			});
+
+			return core.$frendly(r);
 		}
 	}
 	Object.defineProperty(RichArray, "constructor", {

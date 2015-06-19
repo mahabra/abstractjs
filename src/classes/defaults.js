@@ -6,7 +6,9 @@ define([
 	'./Objective/initial.js',
 	'./Functional/initial.js',
 	'./Events/initial.js',
-	'./Widget/initial.js'
+	'./Widget/initial.js',
+	'./Eacher/initial.js',
+	'./NumbersArray/initial.js',
 ], function(){
 
 });

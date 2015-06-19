@@ -4,7 +4,7 @@ define(['./core.js','./medium/scope.js','./../common/clone.js','./../common/isOb
 	core.extend({
 		scope: function(subject, forceType) {
 			
-			if ("number"!==typeof subject.__abstractId__) {
+			if ("object"!==typeof subject || "number"!==typeof subject.__abstractId__) {
 
 				stack[index] = scope(index, subject, forceType);
 

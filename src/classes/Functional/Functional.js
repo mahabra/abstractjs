@@ -50,10 +50,12 @@ define(['./../../core/core.js','./../../common/mixin.js','./../../core/core-ext.
 		*/
 		load: function(resources) {
 			var callback = (this.__subject__||this);
-			$.vendor(resources, function() {
+			
+			$.vendor(resources, function(res) {
+
 				var args = Array.prototype.slice(arguments);
 				args.unshift(false);
-				callback(false, args);
+				callback.apply(window, args);
 			});
 			return true;
 		}

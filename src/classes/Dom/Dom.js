@@ -32,7 +32,7 @@ define([
 		/*
 		Контекст по умолчанию
 		*/
-		this.length = index;
+		this.length = elements.length;
 		this.context = document;
 		this.brahma = true;
 

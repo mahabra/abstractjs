@@ -19,6 +19,22 @@ define(['./../core.js','./../var/classCreator.js'], function(core, classCreator)
 			} else {
 				return false;
 			}
+		},
+		module: function(moduleName) {
+			var realModuleName = 'module'+core(moduleName).firstUpper();
+			if ("function"===typeof core.classes[realModuleName]) {
+				return core.classes[realModuleName];
+			} else {
+				return null;
+			}
+		},
+		moduleExists: function(moduleName) {
+			var realModuleName = 'module'+core(moduleName).firstUpper();
+			if ("function"===typeof core.classes[realModuleName]) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 	});
