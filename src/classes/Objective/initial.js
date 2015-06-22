@@ -1,1 +1,0 @@
-define(['./Objective.js'], function() {});

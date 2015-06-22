@@ -1,3 +1,0 @@
-define(['./Events.js'], function() {
-	
-});

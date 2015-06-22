@@ -1,3 +1,0 @@
-define(['./Inherit.js'], function() {
-
-});

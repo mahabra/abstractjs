@@ -1,1 +1,0 @@
-define(['./Widget.js'], function(){});
