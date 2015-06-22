@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vendor</title>
+	<script src="http://vendorjs.things/supernatural/dist/vendor.js" baseurl="">
+	{	
+		requireAlias: 'vendor',
+		aliases: {
+			"$": "../src/"
+		}
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+<script>
+vendor('$//developer', function(developer) {
+
+	var programm = developer.programm({
+		requires: ['$//gist/common/extend.js']
+	}, function() {
+		
+		return function(extend) {
+			console.log('extend', extend);
+		}
+	});
+
+	programm();
+});
+
+</script>
+</html>

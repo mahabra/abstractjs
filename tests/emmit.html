@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vendor</title>
+	<script src="http://vendorjs.things/supernatural/dist/vendor.js" baseurl="">
+	{	
+		requireAlias: 'vendor',
+		aliases: {
+			"$": "../src/"
+		}
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+<script>
+vendor(['$//gist/generators/emmit'], function(emmit) {
+			
+			//assert.equal(typeof abstract, "function", "Abstract exists");
+			//div.abs-login-panel>form>(fieldset>input[type=text][name=name])+(fieldset>input[type=password][name=password])+button[type=submit]*2
+			console.log(emmit('div.abs-login-panel>form>(fieldset>input[type=text][name=name])+(fieldset>input[type=password][name=password])+button[type=submit]{Войти}*2',document.querySelector('body')));
+			//vova.say('Yo!');
+			//start();
+		});
+
+</script>
+</html>
