@@ -2,6 +2,36 @@ define(['./$.js','$//gist/common/extend'], function(core, extend) {
 	/* Разработчик позволяет создавать новые веб-приложения формируя четкую структуру движка */
 	core.developer = {};
 
+	function ProgrammConstructor(config, scope) {
+		this.config = extend({
+			location:'',
+			includes:[],
+			requires:[],
+			interface: function() {
+				return app.module;
+			}
+		}, config);
+		this.scope = scope;
+		this.module = {};
+	};
+
+	/*
+	Функция колбэк должна формироваться через фабрику, при примом построение в функции
+	происходит очень не хороший глюк, технические подробности которого боюсь останутся
+	мне непонятным пока однажды я не загляну в исходники Javascript. Но тем не менее, если
+	создавать анонимную функцию непосредственно в аргументах anonymModule, происходит перезапись
+	функций, переданной в другом приложении. Не смотря на то, что, казалось бы, функция каждый раз 
+	создается анонимно.
+	В общем, необходимо использовать фабрики как можно чаще. Такой уж он Javascript, великий и
+	загадочный.
+	*/
+	var moduleTesterFactory = function(app, callback) {
+		return function() {
+			
+			app.module = app.scope.apply(core, Array.prototype.slice.call(arguments, 0, app.config.requires.length));
+			callback(app.config.interface.call(app));
+		}
+	}
 
 	/*
 	Программа
@@ -13,29 +43,13 @@ define(['./$.js','$//gist/common/extend'], function(core, extend) {
 	*/
 	core.developer.programm = function(config, scope) {
 		
-		var ProgrammConstructor = function(config, scope) {
-			this.config = extend({
-				location:'',
-				includes:[],
-				requires:[],
-				interface: function() {
-					return app.module;
-				}
-			}, config);
-			this.scope = scope;
-			this.module = {};
-		};
-		
 		var Programm = new ProgrammConstructor(config, scope);
 
 		Programm.test = function(callback) {
-			app=this;
-
-			vendor.anonymModule(null, app.config.requires.concat(app.config.includes), function() {
-				app.module = app.scope.apply(core, Array.prototype.slice.call(arguments, 0, app.config.requires.length));
-				callback(app.config.interface.call(app));
-			}, {
-				location: app.config.location
+			
+			vendor.anonymModule(null, this.config.requires.concat(this.config.includes), moduleTesterFactory(this, callback), {
+				location: this.config.location,
+				watch: true
 			});
 			
 		}

@@ -16,19 +16,14 @@
 	
 </body>
 <script>
-vendor('$//developer', function(developer) {
-
-	var programm = developer.programm({
-		requires: ['$//gist/common/extend.js']
-	}, function() {
-		
-		return function(extend) {
-			console.log('extend', extend);
-		}
-	});
-
-	programm();
-});
+vendor(['$//gist/generators/emmit'], function(emmit) {
+			
+			//assert.equal(typeof abstract, "function", "Abstract exists");
+			//div.abs-login-panel>form>(fieldset>input[type=text][name=name])+(fieldset>input[type=password][name=password])+button[type=submit]*2
+			console.log(emmit('div.abs-login-panel>form>(fieldset>input[type=text][name=name])+(fieldset>input[type=password][name=password])+button[type=submit]{Войти}*2',document.querySelector('body')));
+			//vova.say('Yo!');
+			//start();
+		});
 
 </script>
 </html>
